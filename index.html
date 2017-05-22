@@ -1,0 +1,159 @@
+<html>
+<head>
+  <title>SHUE</title>
+    
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+    <script src="semantic/dist/semantic.min.js"></script>
+  <style>
+  body {
+      margin: 10px
+  }
+      
+  .light_card {}
+  </style>
+</head>
+<body>
+    
+<div class="ui menu">
+  <div class="header item">SHUE</div>
+  <a class="active item">Room</a>
+  <a class="item" onclick="$('#setting').modal('show')">Setting</a>
+  <div class="right menu">
+    <div class="item">
+      <div class="ui action left icon input">
+        <i class="search icon"></i>
+        <input id="q" type="text" placeholder="Room"
+               oninput="search()">
+        <button class="ui button" title="Find"
+                onclick="search()">
+            <i class="icon find"></i>
+          </button>
+      </div>
+    </div>
+  </div>
+</div>
+    
+<div class="ui basic modal" id="setting">
+  <div class="ui icon header">
+    <i class="setting icon"></i>
+    Setting
+  </div>
+  <div class="content">
+
+  </div>
+  <div class="actions">
+    <div class="ui red basic cancel inverted button"
+         onclick="reset()">
+      <i class="trash icon"></i>
+      Reset Hue HUB connection
+    </div>
+    <div class="ui green ok inverted button"
+         onclick="reboot()">
+      <i class="power icon"></i>
+      Reboot application
+    </div>
+  </div>
+</div>
+    
+ <div class="ui cards" id="card_list">
+   <!-- Error card -->
+   <div class="card red" id="error_card" style="display: none">
+     <div class="content">
+        <div class="description error" id="error_message">
+            Oups.. something wrong happen !?
+        </div>
+    </div>
+    <div class="extra content">
+        <span class="left floated like">
+          <a href="#"
+            onclick="closeErrorCard()">
+            <i class="close icon"></i>
+            Skip
+          </a>
+        </span>
+        <span class="right floated star">
+          <a href="#" onclick="reboot()">
+              <i class="history icon"></i>
+              Reboot
+            </a>
+        </span>
+      </div>
+   </div>
+     
+  <div class="card green" id="scan_card" style="display: none">
+    <div class="content">
+    <div class="header">Search bridge</div>
+    <div class="meta">scanning...</div>
+    <div class="description" >
+      <p id="scan_content">Analysing your WIFI network..</p>
+    </div>
+    </div>
+  </div>
+     
+   <div class="card green" id="save_card" style="display: none">
+    <div class="content">
+        <div class="header">Hub FOUND</div>
+        <div class="meta">authorization...</div>
+        <div class="description">
+          <p>Push button on Hue HUB to accept connection.</p>
+            <p>
+                <button class="ui button"
+                        onclick="reboot()">
+                    <i class="check square icon"></i>OK
+                </button>
+            </p>
+        </div>
+    </div>
+  </div>
+  
+   <!-- Room card -->  
+   <div class="card" id="card_$gid" style="display: none">
+    <div class="content">
+      <div class="header">$room_name</div>
+      <div class="meta"> $light_count light</div>
+      <div class="description">
+        <div class="ui equal width inverted center aligned padded grid">
+          <div class="row">
+            <div class="column">
+             <button class="ui orange basic button"
+                     onclick="changeColor(0, $gid, '_on_:true,_bri_:100')">
+                 <i class="icon adjust"></i>Dim
+                </button>
+            </div>
+            <div class="column">
+              <button class="ui yellow basic button"
+                      onclick="changeColor(1, $gid,  '_on_:true,_bri_:255,_hue_:5000')">
+                  <i class="icon lightning"></i>Full
+                </button>
+            </div>
+          </div>
+          <div class="row" >
+            <div class="column">
+              <button class="ui green basic button"
+                      onclick="changeColor(2, $gid, '_on_:true')">
+                  <i class="icon wizard"></i>ON
+                </button>
+            </div>
+            <div class="column">
+              <button class="ui read basic button"
+                      onclick="changeColor(3, $gid, '_on_:false')">
+                  <i class="icon close"></i>OFF
+                </button>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+    
+  
+  <script type="text/javascript" src="http.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+</body>
+</html>
